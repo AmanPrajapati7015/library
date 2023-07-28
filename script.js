@@ -30,4 +30,10 @@ function addBookToLibrary(){
 
 addBookToLibrary()
 
+function displayBooks(){
+    
+}
+
+
+
 console.table(myLibrary)
