@@ -28,6 +28,7 @@ function addBookToLibrary(){
 
     // adding our book to Library
     myLibrary.push(bookToAdd)
+    displayBooks()
 }
 
 const addBookBtn = document.querySelector(".add-btn");
@@ -36,7 +37,9 @@ addBookBtn.addEventListener("click", addBookToLibrary);
 
 const booksContainer = document.querySelector(".books-container");
 function displayBooks(){
-    
+    // for a fresh start!!
+    booksContainer.innerHTML = "" 
+
     myLibrary.forEach(book => {
         let bookCard = document.createElement("div");
         bookCard.classList.add("book");
@@ -62,13 +65,7 @@ function displayBooks(){
         remove.textContent = "Remove";
         bookCard.appendChild(remove);
 
-
-
         booksContainer.appendChild(bookCard)
-
-
-
-
         
     });
 }
