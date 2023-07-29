@@ -16,6 +16,26 @@ myLibrary.push(Book2)
 
 
 
+
+function showForm(){
+    let form = document.querySelector(".new-book-form")
+    let formBackground = document.querySelector(".form-background")
+    formBackground.classList.add("active")
+    form.classList.add("active")
+}
+
+function removeForm(){
+    let form = document.querySelector(".new-book-form")
+    let formBackground = document.querySelector(".form-background")
+    formBackground.classList.remove("active")
+    form.classList.remove("active")
+}
+
+
+
+
+
+
 function addBookToLibrary(){
     // taking user inputs
     let title = prompt("what is the title of the book?")
@@ -29,10 +49,15 @@ function addBookToLibrary(){
     // adding our book to Library
     myLibrary.push(bookToAdd)
     displayBooks()
+
+    // also remove form and its bg after adding book 
 }
 
 const addBookBtn = document.querySelector(".add-btn");
-addBookBtn.addEventListener("click", addBookToLibrary);
+addBookBtn.addEventListener("click", showForm);
+
+let formBackground = document.querySelector(".form-background");
+formBackground.addEventListener("click", removeForm);
 
 
 const booksContainer = document.querySelector(".books-container");

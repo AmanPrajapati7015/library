@@ -100,11 +100,40 @@ button.add-btn:hover{
     background-color: rgb(101, 226, 101);
 }
 .book button.not-read{
-    background-color: rgb(226, 101, 101);
+    background-color: rgb(255, 116, 116);
 }
 .book button.read:hover{
     background-color: rgb(76, 183, 76);
 }
 .book button.not-read:hover{
-    background-color: rgb(183, 76, 76);
+    background-color: rgb(221, 97, 97);
+}
+
+
+
+.new-book-form{
+    background-color: rgb(52, 52, 52);
+    display: none;
+    height: 300px;
+    width: 200px;
+    position: fixed;
+    top:50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+}
+.new-book-form.active,
+.form-background.active{
+    display: block;
+}
+
+
+.form-background{
+    display: none;
+    background-color: white;
+    opacity: 0.1;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
 }
