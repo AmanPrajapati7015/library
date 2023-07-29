@@ -8,7 +8,10 @@ function Book (title, author, pages, isRead){
 }
 
 const Book1 = new Book("good vibes good lives", "Vex King", 250, true);
+const Book2 = new Book("power of subconsious mind", "josph morphy", 342, false);
+
 myLibrary.push(Book1)
+myLibrary.push(Book2)
 
 
 
@@ -25,15 +28,52 @@ function addBookToLibrary(){
 
     // adding our book to Library
     myLibrary.push(bookToAdd)
-
 }
 
-addBookToLibrary()
+const addBookBtn = document.querySelector(".add-btn");
+addBookBtn.addEventListener("click", addBookToLibrary);
 
+
+const booksContainer = document.querySelector(".books-container");
 function displayBooks(){
     
+    myLibrary.forEach(book => {
+        let bookCard = document.createElement("div");
+        bookCard.classList.add("book");
+
+        let titlePara = document.createElement("p");
+        titlePara.textContent = book.title;
+        bookCard.appendChild(titlePara)
+
+        let authorPara = document.createElement("p");
+        authorPara.textContent= "By "+book.author;
+        bookCard.appendChild(authorPara);
+
+        let pagesPara = document.createElement("p");
+        pagesPara.textContent= `${book.pages} pages`;
+        bookCard.appendChild(pagesPara);
+
+        let readStatus = document.createElement("button");
+        readStatus.textContent = book.isRead ? "Read" : "Not Read";
+        readStatus.classList.add(book.isRead ? "read" : "not-read")
+        bookCard.appendChild(readStatus);
+
+        let remove = document.createElement("button");
+        remove.textContent = "Remove";
+        bookCard.appendChild(remove);
+
+
+
+        booksContainer.appendChild(bookCard)
+
+
+
+
+        
+    });
 }
 
 
 
 console.table(myLibrary)
+displayBooks()
