@@ -112,14 +112,27 @@ button.add-btn:hover{
 
 
 .new-book-form{
-    background-color: rgb(52, 52, 52);
+    background-color: #272829;
     display: none;
-    height: 300px;
-    width: 200px;
+    border:2px solid white;
+    border-radius: 10px;
+    height: 350px;
+    width: 250px;
     position: fixed;
     top:50vh;
     left: 50vw;
     transform: translate(-50%, -50%);
+    padding: 30px;
+}
+.form-background{
+    display: none;
+    background-color: white;
+    opacity: 0.3;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
 }
 .new-book-form.active,
 .form-background.active{
@@ -127,13 +140,35 @@ button.add-btn:hover{
 }
 
 
-.form-background{
-    display: none;
-    background-color: white;
-    opacity: 0.1;
-    position: fixed;
-    height: 100vh;
-    width: 100vw;
-    top: 0;
-    left: 0;
+.new-book-form form{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+    height: 100%;
+    justify-content: space-between;
+}
+
+form input, form button{
+    padding: 10px;
+    font-size: 1.1rem;
+    outline: none;
+    border: 1px solid white;
+    background-color: #272829;
+    color: white;
+    border-radius: 5px;
+}
+
+form h3{
+    align-self: center;
+    font-size: 1.5rem;
+}
+form button{
+    border-color: green;
+    color: #272829;
+    background-color: green;
+    font-weight: 700;
+}
+form button:hover{
+    color: green;
+    background-color: #272829;
 }
