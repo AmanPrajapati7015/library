@@ -19,13 +19,16 @@ function toggleRead4All(e){
     e.target.classList.remove("read")
     e.target.classList.remove("not-read")
     e.target.classList.add(myLibrary[i].isRead ? "read" : "not-read")
+
+    updateBooksLog();
 }
 
 function removeBook4All(e){
     let i = +(e.target.parentElement.getAttribute("data-index"))
     myLibrary.splice(i, 1)
 
-    e.target.parentElement.remove()
+    e.target.parentElement.remove();
+    updateBooksLog();
 }
 
 
@@ -55,6 +58,23 @@ function removeForm(){
     form.classList.remove("active")
 }
 
+function updateBooksLog(){
+
+    let total = myLibrary.length
+    let read = 0
+    for (let i = 0; i<total; i++){  //check if you can use some other thing......
+        if (myLibrary[i].isRead){
+            read++;
+        }
+    }
+    let notRead = total - read;
+
+    //updating data in viewport(display)
+    document.querySelector(".total-books").textContent = total;
+    document.querySelector(".total-read").textContent = read;
+    document.querySelector(".total-not-read").textContent = notRead;
+
+}
 
 
 
@@ -129,10 +149,9 @@ function displayBooks(){
 
         booksContainer.appendChild(bookCard)
 
-
         i++
     }
-
+    updateBooksLog()
 
 }
 
