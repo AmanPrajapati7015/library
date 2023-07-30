@@ -16,32 +16,11 @@ myLibrary.push(Book2)
 
 
 
-
-
-function showForm(){
-    let form = document.querySelector(".new-book-form")
-    let formBackground = document.querySelector(".form-background")
-    formBackground.classList.add("active")
-    form.classList.add("active")
-}
-
-function removeForm(){
-    let form = document.querySelector(".new-book-form")
-    let formBackground = document.querySelector(".form-background")
-    formBackground.classList.remove("active")
-    form.classList.remove("active")
-}
-
-
-
-
-
-
 function addBookToLibrary(){
     // extracting form inputs
     let title = document.querySelector("#title").value
     let author = document.querySelector("#author").value
-    let pages = document.querySelector("#pages").value
+    let pages = +document.querySelector("#pages").value
     let isRead =  document.querySelector("#is-read").checked
 
     // creating book with user input using constructor
@@ -60,14 +39,33 @@ function addBookToLibrary(){
     removeForm()
 
     // refresh books in display
-    displayBooks()    
+    displayBooks()
+
 }
 
-const addBookBtn = document.querySelector(".add-btn");
-addBookBtn.addEventListener("click", showForm);
 
-let formBackground = document.querySelector(".form-background");
-formBackground.addEventListener("click", removeForm);
+
+
+
+
+
+
+function showForm(){
+    let form = document.querySelector(".new-book-form")
+    let formBackground = document.querySelector(".form-background")
+    formBackground.classList.add("active")
+    form.classList.add("active")
+}
+
+function removeForm(){
+    let form = document.querySelector(".new-book-form")
+    let formBackground = document.querySelector(".form-background")
+    formBackground.classList.remove("active")
+    form.classList.remove("active")
+}
+
+
+
 
 
 const booksContainer = document.querySelector(".books-container");
