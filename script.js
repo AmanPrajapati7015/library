@@ -21,6 +21,12 @@ function toggleRead4All(e){
     e.target.classList.add(myLibrary[i].isRead ? "read" : "not-read")
 }
 
+function removeBook4All(e){
+    let i = +(e.target.parentElement.getAttribute("data-index"))
+    myLibrary.splice(i, 1)
+
+    e.target.parentElement.remove()
+}
 
 
 
@@ -82,19 +88,6 @@ function addBookToLibrary(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 const booksContainer = document.querySelector(".books-container");
 function displayBooks(){
     // for a fresh start!!
@@ -129,6 +122,7 @@ function displayBooks(){
 
         let remove = document.createElement("button");
         remove.textContent = "Remove";
+        remove.addEventListener("click", removeBook4All)
         bookCard.appendChild(remove);
 
         bookCard.setAttribute("data-index", i)
