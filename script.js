@@ -38,20 +38,29 @@ function removeForm(){
 
 
 function addBookToLibrary(){
-    // taking user inputs
-    let title = prompt("what is the title of the book?")
-    let author = prompt("who wrote this book?")
-    let pages = +prompt("no. of pages?")
-    let isRead =  prompt("have you read this book? {yes/no}")==="yes"? true: false;
+    // extracting form inputs
+    let title = document.querySelector("#title").value
+    let author = document.querySelector("#author").value
+    let pages = document.querySelector("#pages").value
+    let isRead =  document.querySelector("#is-read").checked
 
     // creating book with user input using constructor
     let bookToAdd = new Book(title, author, pages, isRead)
 
     // adding our book to Library
     myLibrary.push(bookToAdd)
-    displayBooks()
 
-    // also remove form and its bg after adding book 
+    // clearing input fields
+    document.querySelector("#title").value = ""
+    document.querySelector("#author").value = ""
+    document.querySelector("#pages").value = ""
+    document.querySelector("#is-read").checked = false
+
+    // hide form from viewport
+    removeForm()
+
+    // refresh books in display
+    displayBooks()    
 }
 
 const addBookBtn = document.querySelector(".add-btn");
