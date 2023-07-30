@@ -27,7 +27,7 @@ function removeBook4All(e){
     let i = +(e.target.parentElement.getAttribute("data-index"))
     myLibrary.splice(i, 1)
 
-    e.target.parentElement.remove();
+    displayBooks()
     updateBooksLog();
 }
 
@@ -59,14 +59,9 @@ function removeForm(){
 }
 
 function updateBooksLog(){
-
     let total = myLibrary.length
-    let read = 0
-    for (let i = 0; i<total; i++){  //check if you can use some other thing......
-        if (myLibrary[i].isRead){
-            read++;
-        }
-    }
+    let read = myLibrary.reduce((p, c)=> (c.isRead)? p+1: p, 0)
+
     let notRead = total - read;
 
     //updating data in viewport(display)
