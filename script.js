@@ -1,34 +1,86 @@
 let myLibrary = [];
 
-function Book (title, author, pages, isRead){
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.isRead = isRead;
-}
+class Book{
+    constructor(title, author, pages, isRead){
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.isRead = isRead;
+    }
 
-Book.prototype.toggleRead = function(){
-    this.isRead = !this.isRead
-}
+    toggleRead(){
+        this.isRead = !this.isRead
+    }
 
-function toggleRead4All(e){
-    let i = +(e.target.parentElement.getAttribute("data-index"))
-    myLibrary[i].toggleRead()
+    static toggleRead4All(e){
+        let i = +(e.target.parentElement.getAttribute("data-index"))
+        myLibrary[i].toggleRead();
+    
+        e.target.textContent = myLibrary[i].isRead ? "Read" : "Not Read";
+        e.target.classList.remove("read");
+        e.target.classList.remove("not-read");
+        e.target.classList.add(myLibrary[i].isRead ? "read" : "not-read");
+    
+        Book.updateBooksLog();
+        console.table(myLibrary);
+    }
 
-    e.target.textContent = myLibrary[i].isRead ? "Read" : "Not Read";
-    e.target.classList.remove("read")
-    e.target.classList.remove("not-read")
-    e.target.classList.add(myLibrary[i].isRead ? "read" : "not-read")
 
-    updateBooksLog();
-}
+    static removeBook4All(e){
+        let i = +(e.target.parentElement.getAttribute("data-index"))
+        myLibrary.splice(i, 1)
+    
+        displayBooks();
+        console.table(myLibrary)
 
-function removeBook4All(e){
-    let i = +(e.target.parentElement.getAttribute("data-index"))
-    myLibrary.splice(i, 1)
+        Book.updateBooksLog();
 
-    displayBooks()
-    updateBooksLog();
+    }
+
+
+    static updateBooksLog(){
+        let total = myLibrary.length
+        let read = myLibrary.reduce((p, c)=> (c.isRead)? p+1: p, 0)
+    
+        let notRead = total - read;
+    
+        //updating data in viewport(display)
+        document.querySelector(".total-books").textContent = total;
+        document.querySelector(".total-read").textContent = read;
+        document.querySelector(".total-not-read").textContent = notRead;
+    
+    }
+
+
+    static addBookToLibrary(){
+        // extracting form inputs
+        let title = document.querySelector("#title").value
+        let author = document.querySelector("#author").value
+        let pages = +document.querySelector("#pages").value
+        let isRead =  document.querySelector("#is-read").checked
+    
+        // creating book with user input using constructor
+        let bookToAdd = new Book(title, author, pages, isRead)
+    
+        // adding our book to Library
+        myLibrary.push(bookToAdd)
+    
+        // clearing input fields
+        document.querySelector("#title").value = ""
+        document.querySelector("#author").value = ""
+        document.querySelector("#pages").value = ""
+        document.querySelector("#is-read").checked = false
+    
+        // hide form from viewport
+        removeForm();
+    
+        // refresh books in display
+        displayBooks();
+        console.table(myLibrary)
+
+
+    }
+
 }
 
 
@@ -46,79 +98,36 @@ myLibrary.push(Book2)
 
 // these functions will be called by html elements check html file for their call.
 function showForm(){
-    let form = document.querySelector(".new-book-form")
-    let formBackground = document.querySelector(".form-background")
-    formBackground.classList.add("active")
-    form.classList.add("active")
+    let form = document.querySelector(".new-book-form");
+    let formBackground = document.querySelector(".form-background");
+    formBackground.classList.add("active");
+    form.classList.add("active");
 }
 function removeForm(){
-    let form = document.querySelector(".new-book-form")
-    let formBackground = document.querySelector(".form-background")
-    formBackground.classList.remove("active")
-    form.classList.remove("active")
-}
-
-function updateBooksLog(){
-    let total = myLibrary.length
-    let read = myLibrary.reduce((p, c)=> (c.isRead)? p+1: p, 0)
-
-    let notRead = total - read;
-
-    //updating data in viewport(display)
-    document.querySelector(".total-books").textContent = total;
-    document.querySelector(".total-read").textContent = read;
-    document.querySelector(".total-not-read").textContent = notRead;
-
+    let form = document.querySelector(".new-book-form");
+    let formBackground = document.querySelector(".form-background");
+    formBackground.classList.remove("active");
+    form.classList.remove("active");
 }
 
 
 
-
-function addBookToLibrary(){
-    // extracting form inputs
-    let title = document.querySelector("#title").value
-    let author = document.querySelector("#author").value
-    let pages = +document.querySelector("#pages").value
-    let isRead =  document.querySelector("#is-read").checked
-
-    // creating book with user input using constructor
-    let bookToAdd = new Book(title, author, pages, isRead)
-
-    // adding our book to Library
-    myLibrary.push(bookToAdd)
-
-    // clearing input fields
-    document.querySelector("#title").value = ""
-    document.querySelector("#author").value = ""
-    document.querySelector("#pages").value = ""
-    document.querySelector("#is-read").checked = false
-
-    // hide form from viewport
-    removeForm()
-
-    // refresh books in display
-    displayBooks()
-
-}
-
-
-
-const booksContainer = document.querySelector(".books-container");
+let booksContainer = document.querySelector(".books-container");
 function displayBooks(){
     // for a fresh start!!
     booksContainer.innerHTML = "" 
 
-    let i = 0;
     let book;
-    while (i < myLibrary.length){
-        book = myLibrary[i]
+    for (let i = 0; i<myLibrary.length; i++){
+
+        book = myLibrary[i];
 
         let bookCard = document.createElement("div");
         bookCard.classList.add("book");
 
         let titlePara = document.createElement("p");
         titlePara.textContent = book.title;
-        bookCard.appendChild(titlePara)
+        bookCard.appendChild(titlePara);
 
         let authorPara = document.createElement("p");
         authorPara.textContent= "By "+book.author;
@@ -129,26 +138,26 @@ function displayBooks(){
         bookCard.appendChild(pagesPara);
 
         let readStatus = document.createElement("button");
-        readStatus.classList.add("read-status") 
+        readStatus.classList.add("read-status");
         readStatus.textContent = book.isRead ? "Read" : "Not Read";
         readStatus.classList.add(book.isRead ? "read" : "not-read")
-        readStatus.addEventListener("click", toggleRead4All)    //important!!
+        readStatus.addEventListener("click", Book.toggleRead4All);    //important!!
         bookCard.appendChild(readStatus);
 
         let remove = document.createElement("button");
         remove.textContent = "Remove";
-        remove.addEventListener("click", removeBook4All)
+        remove.addEventListener("click", Book.removeBook4All);
         bookCard.appendChild(remove);
 
-        bookCard.setAttribute("data-index", i)
+        bookCard.setAttribute("data-index", i);
 
-        booksContainer.appendChild(bookCard)
+        booksContainer.appendChild(bookCard);
 
-        i++
     }
-    updateBooksLog()
+    Book.updateBooksLog()
 
 }
+
 
 
 

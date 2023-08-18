@@ -23,21 +23,6 @@
         <hr>
         <button class="add-btn" onclick="showForm()">+ Add Book</button>
         <div class="books-container">
-            <div class="book">
-                <p>title this is mult Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam id </p>
-                <p>author</p>
-                <p>120 pages</p>
-                <button class="read">read</button>
-                <button class="remove">remove</button>
-            </div>
-
-            <div class="book">
-                <p>title</p>
-                <p>author</p>
-                <p>120 pages</p>
-                <button class="not-read">read</button>
-                <button class="remove">remove</button>
-            </div>
         </div>
     </div>
 
@@ -50,10 +35,10 @@
             <input required type="text" id="author" placeholder="Author">
             <input required type="number" id="pages" placeholder="Pages">
             <div class="read-confirm">
-                <label for="read?">Have you read it?</label>
+                <label for="is-read">Have you read it?</label>
                 <input type="checkbox" id="is-read">
             </div>
-            <button class="submit" onclick="addBookToLibrary()">Add book</button>
+            <button class="submit" onclick="Book.addBookToLibrary()">Add book</button>
         </form>
     </div>
 
